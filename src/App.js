@@ -1,20 +1,73 @@
 import React from 'react';
+import { useState } from 'react';
 import { Navigation } from './components/Navigation';
 import { PokemonCard } from './components/PokemonCard';
+import { InputGroup } from 'react-bootstrap';
 
 const LIMIT = 150;
 const pokeApi = `https://pokeapi.co/api/v2/pokemon/?limit=${LIMIT}`;
 
-function App() {
+export default function App() {
+
+  function Wrapper({ children }) {
+    return (
+      <>
+        <Navigation />
+        <Container className="py-4">{children}</Container>
+      </>
+    );
+  }
+
+  // use states
+  const { data, error, isLoading } = useSWR(POKE_API, fetcher);
+  const [searchTerms, setSearchTerms] = useState("");
+
+  function handleChange(event) {
+    setSearchTerms(event.target.value);
+  }
+
+  function includesSearchTerms({ name }) {
+    return name.toLowerCase().includes(searchTerms.toLowerCase());
+  }
+
+  if (error){
+    return (
+      <Wrapper>
+				<Alert variant="danger">
+					Error: There was a problem fetching the Pokémon data.
+				</Alert>
+			</Wrapper>
+    );
+  }
+
+  if (isLoading) {
+    return (
+			<Wrapper>
+				<Alert>Fetching the Pokémon data...</Alert>
+			</Wrapper>
+		);
+  }
 
   return (
-    <div data-testid="app">
-      <Navigation />
-
-      <h1>Pokemon should appear here</h1>
-      <PokemonCard />
-    </div>
+    <Wrapper>
+      <InputGroup class="mb-3">
+        <InputGroup.text id="search">Search</InputGroup.text>
+        <Form.control
+          aria-label="pokemon name"
+          aria-describedby="search"
+          value={searchTerms}
+          onChange={handleChange}
+        />
+      </InputGroup>
+      <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+				{data.results.filter(includesSearchTerms).map((pokemon) => (
+					<Col key={pokemon.name}>
+						<PokemonCard {...pokemon} />
+					</Col>
+				))}
+			</Row>
+    </Wrapper>
   );
 }
 
-export { App };
+
