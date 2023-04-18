@@ -1,8 +1,14 @@
 import React from 'react';
-import { useState } from 'react';
-import { Navigation } from './components/Navigation';
-import { PokemonCard } from './components/PokemonCard';
-import { InputGroup } from 'react-bootstrap';
+import { useState } from "react";
+import Alert from "react-bootstrap/Alert";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import Row from "react-bootstrap/Row";
+import Navigation from "./components/Navigation";
+import PokemonCard from "./components/PokemonCard";
+import useSWR, { fetcher } from "./swr";
 
 const LIMIT = 150;
 const pokeApi = `https://pokeapi.co/api/v2/pokemon/?limit=${LIMIT}`;
