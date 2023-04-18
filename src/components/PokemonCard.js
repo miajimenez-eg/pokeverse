@@ -1,5 +1,6 @@
 import React from 'react';
 import useSWR, { fetcher } from "../swr";
+import Card from 'react-bootstrap/Card';
 
 export default function PokemonCard({ url, name }) {
   const { data, error, isLoading } = useSWR(url, fetcher)
@@ -7,10 +8,10 @@ export default function PokemonCard({ url, name }) {
   if(error){
     return(
       <Card>
-        <Card.body>
-          <Card.title>Error</Card.title>
-          <Card.text>There was an error fetching the Pokemon data</Card.text>
-        </Card.body>
+        <Card.Body>
+          <Card.Title>Error</Card.Title>
+          <Card.Text>There was an error fetching the Pokemon data</Card.Text>
+        </Card.Body>
       </Card>
     )
   }
@@ -18,10 +19,10 @@ export default function PokemonCard({ url, name }) {
   if(isLoading){
     return(
       <Card>
-        <Card.body>
-          <Card.title>Loading...</Card.title>
-          <Card.text>Fetching the Pokemon data...</Card.text>
-        </Card.body>
+        <Card.Body>
+          <Card.Title>Loading...</Card.Title>
+          <Card.Text>Fetching the Pokemon data...</Card.Text>
+        </Card.Body>
       </Card>
     )
   }

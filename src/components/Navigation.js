@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
-import squirtle from '../../public/squirtle.png';
+import squirtle from "../squirtle.png";
 
 export default function Navigation() {
   return (

@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from "react";
+import React, { useState } from 'react';
 import Alert from "react-bootstrap/Alert";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -11,7 +10,7 @@ import PokemonCard from "./components/PokemonCard";
 import useSWR, { fetcher } from "./swr";
 
 const LIMIT = 150;
-const pokeApi = `https://pokeapi.co/api/v2/pokemon/?limit=${LIMIT}`;
+const POKE_API = `https://pokeapi.co/api/v2/pokemon/?limit=${LIMIT}`;
 
 export default function App() {
 
@@ -57,21 +56,21 @@ export default function App() {
   return (
     <Wrapper>
       <InputGroup class="mb-3">
-        <InputGroup.text id="search">Search</InputGroup.text>
-        <Form.control
+        <InputGroup.Text id="search">Search</InputGroup.Text>
+        <Form.Control
           aria-label="pokemon name"
           aria-describedby="search"
           value={searchTerms}
           onChange={handleChange}
         />
       </InputGroup>
-      <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+      { <Row xs={1} sm={2} md={3} lg={4} className="g-4">
 				{data.results.filter(includesSearchTerms).map((pokemon) => (
 					<Col key={pokemon.name}>
 						<PokemonCard {...pokemon} />
 					</Col>
-				))}
-			</Row>
+				))} 
+			</Row>}
     </Wrapper>
   );
 }
